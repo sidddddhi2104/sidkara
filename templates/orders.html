@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<section class="section-padding">
+
+    <div class="section-title">
+        <h2>My Orders</h2>
+    </div>
+
+    <div class="glass-card" style="padding:40px; overflow:auto;">
+
+        <table style="width:100%;">
+
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>#1001</td>
+                <td>2026-04-28</td>
+                <td>₹699</td>
+                <td>Processing</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</section>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

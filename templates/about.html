@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>About Us | Sidkara Studio</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- BACK HOME BUTTON -->
+
+<a href="/"
+   class="home-back-btn">
+
+    Home
+
+</a>
+
+<!-- ABOUT SECTION -->
+
+<section class="section-padding about-section">
+
+    <div class="section-title">
+
+        <h2>Our Artistic Journey</h2>
+
+        <p>
+            Crafted with passion, elegance and creativity.
+        </p>
+
+    </div>
+
+    <div class="about-container">
+
+        <!-- IMAGE -->
+
+        <div class="about-image">
+
+            <img src="{{ url_for('static',
+            filename='images/hero.jpg') }}"
+                 alt="Sidkara Studio">
+
+        </div>
+
+        <!-- CONTENT -->
+
+        <div class="about-content">
+
+            <span class="about-tag">
+                Handmade Luxury Art Brand
+            </span>
+
+            <h3>
+                Bringing Art Into Beautiful Living
+            </h3>
+
+            <p>
+
+                Sidkara Studio is a premium handmade art brand
+                born from a deep love for creativity,
+                elegance and artistic storytelling.
+
+                We specialize in handcrafted paintings,
+                luxury candles, customized gifts,
+                festive décor and personalized artistic creations
+                designed to make every moment feel special.
+
+            </p>
+
+            <p>
+
+                Every creation is carefully handcrafted
+                with passion, imagination and attention to detail.
+
+                Our mission is to transform emotions into art
+                and bring warmth, beauty and sophistication
+                into your everyday life.
+
+            </p>
+
+            <!-- FEATURES -->
+
+            <div class="about-features">
+
+                <div class="feature-card">
+                    ✨ Handmade with Love
+                </div>
+
+                <div class="feature-card">
+                    🎨 Personalized Designs
+                </div>
+
+                <div class="feature-card">
+                    🕯 Premium Craftsmanship
+                </div>
+
+                <div class="feature-card">
+                    💝 Elegant Gift Solutions
+                </div>
+
+            </div>
+
+            <!-- BUTTONS -->
+
+            <div class="about-buttons">
+
+                <a href="/products"
+                   class="primary-btn">
+
+                    Explore Products
+
+                </a>
+
+                <a href="/custom-order"
+                   class="secondary-btn">
+
+                    Custom Orders
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Wishlist | Sidkara Studio</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        Sidkara Studio
+    </div>
+
+    <ul class="nav-links">
+
+        <li><a href="/">Home</a></li>
+
+        <li><a href="/products">Products</a></li>
+
+        <li><a href="/cart">Cart</a></li>
+
+    </ul>
+
+</nav>
+
+<!-- ================= WISHLIST ================= -->
+
+<section class="section-padding">
+
+    <div class="section-title">
+
+        <h2>My Wishlist ❤️</h2>
+
+        <p>Your saved handmade luxury creations.</p>
+
+    </div>
+
+    <div class="product-grid"
+         id="wishlistContainer">
+
+    </div>
+
+</section>
+
+<!-- ================= SCRIPT ================= -->
+
+<script>
+
+const wishlistContainer =
+document.getElementById("wishlistContainer");
+
+let wishlist =
+JSON.parse(localStorage.getItem("wishlist")) || [];
+
+function renderWishlist(){
+
+    wishlistContainer.innerHTML = "";
+
+    // EMPTY WISHLIST
+
+    if(wishlist.length === 0){
+
+        wishlistContainer.innerHTML = `
+
+            <div style="
+                width:100%;
+                text-align:center;
+                padding:60px;
+            ">
+
+                <h2 style="
+                    font-size:40px;
+                    color:#c97ca5;
+                    margin-bottom:20px;
+                ">
+                    Wishlist is Empty 💔
+                </h2>
+
+                <p style="
+                    color:#777;
+                    font-size:18px;
+                ">
+                    Save your favorite handmade products.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    // SHOW PRODUCTS
+
+    wishlist.forEach((product,index) => {
+
+        wishlistContainer.innerHTML += `
+
+        <div class="product-card">
+
+            <img src="${product.image}">
+
+            <div class="product-info">
+
+                <span class="product-category">
+
+                    ${product.category}
+
+                </span>
+
+                <h3>
+
+                    ${product.name}
+
+                </h3>
+
+                <p>
+
+                    ${product.description}
+
+                </p>
+
+                <div class="price-cart">
+
+                    <span class="product-price">
+
+                        ₹${product.price}
+
+                    </span>
+
+                </div>
+
+                <button
+                    onclick="removeWishlist(${index})"
+                    style="
+                        width:100%;
+                        margin-top:20px;
+                        padding:12px;
+                        border:none;
+                        border-radius:30px;
+                        background:#ffd6e7;
+                        color:#a44d75;
+                        font-weight:600;
+                        cursor:pointer;
+                    ">
+
+                    Remove From Wishlist
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+// REMOVE PRODUCT
+
+function removeWishlist(index){
+
+    wishlist.splice(index,1);
+
+    localStorage.setItem(
+        "wishlist",
+        JSON.stringify(wishlist)
+    );
+
+    renderWishlist();
+
+}
+
+// INITIAL LOAD
+
+renderWishlist();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Contacts | Siddhi's DIY Art Studio</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="icon"
+          href="{{ url_for('static', filename='images/logo.png') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Siddhi's DIY Art Studio
+        </div>
+
+        <ul class="nav-links">
+
+            <li><a href="/admin">Dashboard</a></li>
+
+        </ul>
+
+    </nav>
+
+    <!-- PAGE -->
+
+    <section class="section-padding">
+
+        <div class="section-title">
+
+            <h2>Customer Messages</h2>
+
+            <p>
+                View all customer inquiries and contact form messages.
+            </p>
+
+        </div>
+
+        <div class="glass-card"
+             style="padding:40px; overflow-x:auto;">
+
+            <table width="100%"
+                   cellpadding="20">
+
+                <tr style="background:#fce7f3;">
+
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+
+                </tr>
+
+                {% for contact in contacts %}
+
+                <tr>
+
+                    <td>{{ contact[0] }}</td>
+                    <td>{{ contact[1] }}</td>
+                    <td>{{ contact[2] }}</td>
+                    <td>{{ contact[3] }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+    </section>
+
+    <script src="{{ url_for('static',
+    filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

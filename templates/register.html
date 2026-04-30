@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Register | Siddhi's DIY Art Studio</title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- GOOGLE FONT -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- ICONS -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body class="auth-body">
+
+    <!-- HOME BUTTON -->
+
+    <a href="/"
+       class="home-back-btn">
+        Home
+
+    </a>
+
+    <!-- REGISTER CONTAINER -->
+
+    <div class="auth-container">
+
+        <!-- LEFT SIDE -->
+
+        <div class="auth-image">
+
+            <img src="{{ url_for('static',
+            filename='images/hero.jpg') }}">
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="auth-form-section">
+
+            <div class="auth-card">
+
+                <h1>Create Account</h1>
+
+                <p>
+                    Join Siddhi's DIY Art Studio
+                    and explore luxurious handmade creations.
+                </p>
+
+                <form method="POST"
+                      action="/register">
+
+                    <div class="input-group">
+
+                        <i class="fas fa-user"></i>
+
+                        <input type="text"
+                               name="name"
+                               placeholder="Full Name"
+                               required>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <i class="fas fa-envelope"></i>
+
+                        <input type="email"
+                               name="email"
+                               placeholder="Email Address"
+                               required>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <i class="fas fa-lock"></i>
+
+                        <input type="password"
+                               name="password"
+                               placeholder="Password"
+                               required>
+
+                    </div>
+
+                    <button type="submit"
+                            class="auth-btn">
+
+                        Register
+
+                    </button>
+
+                </form>
+
+                <div class="auth-bottom">
+
+                    Already have an account?
+
+                    <a href="/login">
+
+                        Login
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

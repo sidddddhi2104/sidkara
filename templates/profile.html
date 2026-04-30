@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile</title>
+
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<section class="section-padding">
+
+    <div class="glass-card" style="max-width:700px; margin:auto; padding:50px; text-align:center;">
+
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" style="width:120px; margin:auto; margin-bottom:20px;">
+
+        <h2>{{ session.username }}</h2>
+
+        <p style="margin-top:10px;">
+            Welcome to your artistic shopping profile.
+        </p>
+
+        <div style="margin-top:30px;">
+            <a href="/orders" class="primary-btn">View Orders</a>
+            <a href="/logout" class="secondary-btn">Logout</a>
+        </div>
+
+    </div>
+
+</section>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

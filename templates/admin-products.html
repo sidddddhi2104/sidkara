@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Products | Siddhi's DIY Art Studio</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="icon"
+          href="{{ url_for('static', filename='images/logo.png') }}">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Siddhi's DIY Art Studio
+        </div>
+
+        <ul class="nav-links">
+
+            <li><a href="/admin">Dashboard</a></li>
+
+        </ul>
+
+    </nav>
+
+    <!-- ADD PRODUCT -->
+
+    <section class="section-padding">
+
+        <div class="section-title">
+
+            <h2>Manage Products</h2>
+
+            <p>
+                Add and manage handmade DIY products.
+            </p>
+
+        </div>
+
+        <form method="POST"
+              action="/add-product"
+              enctype="multipart/form-data"
+              class="glass-card"
+              style="padding:40px; margin-bottom:60px;">
+
+            <input type="text"
+                   name="name"
+                   placeholder="Product Name"
+                   required
+                   style="width:100%;
+                   padding:15px;
+                   margin-bottom:20px;">
+
+            <input type="text"
+                   name="category"
+                   placeholder="Category"
+                   required
+                   style="width:100%;
+                   padding:15px;
+                   margin-bottom:20px;">
+
+            <input type="number"
+                   name="price"
+                   placeholder="Price"
+                   required
+                   style="width:100%;
+                   padding:15px;
+                   margin-bottom:20px;">
+
+            <textarea name="description"
+                      placeholder="Description"
+                      style="width:100%;
+                      padding:15px;
+                      height:120px;
+                      margin-bottom:20px;"></textarea>
+
+            <input type="file"
+                   name="image"
+                   required
+                   style="margin-bottom:20px;">
+
+            <button type="submit"
+                    class="primary-btn">
+
+                Add Product
+
+            </button>
+
+        </form>
+
+        <!-- PRODUCT GRID -->
+
+        <div class="category-grid">
+
+            {% for product in products %}
+
+            <div class="category-card">
+
+                <img src="{{ url_for('static',
+                filename='images/' + product[5]) }}">
+
+                <h3>{{ product[1] }}</h3>
+
+                <div style="padding:20px;
+                            text-align:center;">
+
+                    <p style="margin-bottom:15px;">
+                        ₹{{ product[3] }}
+                    </p>
+
+                    <a href="/delete-product/{{ product[0] }}"
+                       class="secondary-btn">
+
+                        Delete Product
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    <script src="{{ url_for('static',
+    filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

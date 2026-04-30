@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Products | Sidkara Studio</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        Sidkara Studio
+    </div>
+
+    <ul class="nav-links">
+
+        <li><a href="/">Home</a></li>
+
+        <li><a href="/wishlist">Wishlist</a></li>
+
+        <li><a href="/cart">Cart</a></li>
+
+            </ul>
+
+</nav>
+
+<!-- ================= PRODUCTS SECTION ================= -->
+
+<section class="section-padding products-page">
+
+    <!-- TITLE -->
+
+    <div class="section-title">
+
+        <span class="hero-tag">
+            Handmade Luxury Collection
+        </span>
+
+        <h2>
+            Our Handmade Products
+        </h2>
+
+        <p>
+            Explore premium handcrafted creations made
+            with creativity, elegance and love.
+        </p>
+
+    </div>
+
+    <!-- SEARCH + FILTER -->
+
+    <div class="product-controls">
+
+        <input type="text"
+               id="searchInput"
+               placeholder="Search handmade products...">
+
+        <div class="filter-buttons">
+
+            <button class="filter-btn active"
+                    data-category="all">
+
+                All
+
+            </button>
+
+            <button class="filter-btn"
+                    data-category="candles">
+
+                Candles
+
+            </button>
+
+            <button class="filter-btn"
+                    data-category="paintings">
+
+                Paintings
+
+            </button>
+
+            <button class="filter-btn"
+                    data-category="decor">
+
+                Decor
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- PRODUCT GRID -->
+
+    <div class="product-grid">
+
+        <!-- PRODUCT 1 -->
+
+        <div class="product-card"
+             data-category="candles">
+
+            <img src="{{ url_for('static', filename='images/candle.jpg') }}">
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    Scented Candle
+                </span>
+
+                <h3>
+                    Lavender Bliss Candle
+                </h3>
+
+                <p>
+                    Relaxing handmade soy candle with premium floral fragrance.
+                </p>
+
+                <div class="price-cart">
+
+                    <span class="product-price">
+                        ₹699
+                    </span>
+
+                    <div class="product-actions">
+
+                        <button class="wishlist-btn"
+        data-name="Lavender Bliss Candle"
+        data-price="699"
+        data-image="{{ url_for('static', filename='images/candle.jpg') }}"
+        data-category="Scented Candle"
+        data-description="Relaxing handmade soy candle with premium floral fragrance.">
+
+    ♡ Wishlist
+
+</button>
+                        <button class="cart-btn">
+                            Add To Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- PRODUCT 2 -->
+
+        <div class="product-card"
+             data-category="paintings">
+
+            <img src="{{ url_for('static', filename='images/painting.jpg') }}">
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    Handmade Painting
+                </span>
+
+                <h3>
+                    Luxury Canvas Art
+                </h3>
+
+                <p>
+                    Elegant handcrafted artwork perfect for aesthetic interiors.
+                </p>
+
+                <div class="price-cart">
+
+                    <span class="product-price">
+                        ₹2499
+                    </span>
+
+                    <div class="product-actions">
+
+                      <button class="wishlist-btn"
+        data-name="Luxury Canvas Art"
+        data-price="2499"
+        data-image="{{ url_for('static', filename='images/painting.jpg') }}"
+        data-category="Handmade Painting"
+        data-description="Elegant handcrafted artwork perfect for aesthetic interiors.">
+
+    ♡ Wishlist
+
+</button>
+                        <button class="cart-btn">
+                            Add To Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- PRODUCT 3 -->
+
+        <div class="product-card"
+             data-category="decor">
+
+            <img src="{{ url_for('static', filename='images/decor.jpg') }}">
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    Festival Decor
+                </span>
+
+                <h3>
+                    Celebration Decor Set
+                </h3>
+
+                <p>
+                    Premium handmade festive décor crafted beautifully.
+                </p>
+
+                <div class="price-cart">
+
+                    <span class="product-price">
+                        ₹1599
+                    </span>
+
+                    <div class="product-actions">
+
+                     <button class="wishlist-btn"
+        data-name="Celebration Decor Set"
+        data-price="1599"
+        data-image="{{ url_for('static', filename='images/decor.jpg') }}"
+        data-category="Festival Decor"
+        data-description="Premium handmade festive décor crafted beautifully.">
+
+    ♡ Wishlist
+
+</button>
+                        <button class="cart-btn">
+                            Add To Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- PRODUCT 4 -->
+
+        <div class="product-card"
+             data-category="paintings">
+
+            <img src="{{ url_for('static', filename='images/sketch.jpg') }}">
+
+            <div class="product-info">
+
+                <span class="product-category">
+                    Pencil Sketch
+                </span>
+
+                <h3>
+                    Custom Portrait Sketch
+                </h3>
+
+                <p>
+                    Personalized hand-drawn sketch crafted from your memories.
+                </p>
+
+                <div class="price-cart">
+
+                    <span class="product-price">
+                        ₹1299
+                    </span>
+
+                    <div class="product-actions">
+
+                       <button class="wishlist-btn"
+        data-name="Custom Portrait Sketch"
+        data-price="1299"
+        data-image="{{ url_for('static', filename='images/sketch.jpg') }}"
+        data-category="Pencil Sketch"
+        data-description="Personalized hand-drawn sketch crafted from your memories.">
+
+    ♡ Wishlist
+
+</button>
+
+                        <button class="cart-btn">
+                            Add To Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= WHATSAPP BUTTON ================= -->
+
+<a href="https://wa.me/919999999999"
+   class="whatsapp-btn">
+
+    💬
+
+</a>
+
+<!-- ================= SCRIPT ================= -->
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

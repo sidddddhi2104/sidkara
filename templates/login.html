@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- BACK HOME BUTTON -->
+
+<a href="/"
+   class="home-back-btn">
+
+    Home
+
+</a>
+
+
+<section class="section-padding">
+
+    <div class="glass-card" style="max-width:500px; margin:auto; padding:50px;">
+
+        <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
+
+        <form method="POST">
+
+		<input type="text" name="email" placeholder="Enter Email or Admin Username" required class="input-field">
+            <input type="password" name="password" placeholder="Enter Password" required class="input-field">
+
+            <button type="submit" class="primary-btn" style="width:100%; border:none;">
+                Login
+            </button>
+
+        </form>
+
+        <p style="margin-top:20px; text-align:center;">
+            Don't have an account?
+            <a href="/register">Register</a>
+        </p>
+
+    </div>
+
+</section>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ product[1] }} | Siddhi's DIY Art Studio</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="icon"
+          href="{{ url_for('static', filename='images/logo.png') }}">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Siddhi's DIY Art Studio
+        </div>
+
+        <ul class="nav-links">
+
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/cart">Cart</a></li>
+
+        </ul>
+
+    </nav>
+
+    <!-- PRODUCT DETAILS -->
+
+    <section class="hero">
+
+        <div class="hero-image">
+
+            <img src="{{ url_for('static',
+            filename='images/' + product[5]) }}">
+
+        </div>
+
+        <div class="hero-content">
+
+            <h1>{{ product[1] }}</h1>
+
+            <p style="margin-bottom:25px;">
+
+                {{ product[4] }}
+
+            </p>
+
+            <h2 style="margin-bottom:25px;
+                       color:#c86b9a;">
+
+                ₹{{ product[3] }}
+
+            </h2>
+
+            <a href="/add-to-cart/{{ product[0] }}"
+               class="primary-btn">
+
+                Add To Cart
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <script src="{{ url_for('static',
+    filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

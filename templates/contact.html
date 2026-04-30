@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us</title>
+
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- BACK HOME BUTTON -->
+
+<a href="/"
+   class="home-back-btn">
+
+    Home
+
+</a>
+
+
+<section class="section-padding">
+
+    <div class="section-title">
+        <h2>Get In Touch</h2>
+        <p>We would love to hear from you.</p>
+    </div>
+
+    <div class="glass-card" style="max-width:700px; margin:auto; padding:50px;">
+
+        <form method="POST">
+
+            <input type="text" name="name" placeholder="Your Name" required class="input-field">
+
+            <input type="email" name="email" placeholder="Your Email" required class="input-field">
+
+            <textarea name="message" rows="6" placeholder="Your Message" required class="input-field"></textarea>
+
+            <button type="submit" class="primary-btn" style="width:100%; border:none;">
+                Send Message
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
