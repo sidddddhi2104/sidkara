@@ -486,10 +486,15 @@ def admin_contacts():
 @app.route('/testdb')
 def testdb():
     try:
-        conn = get_db_connection()
-
-        if conn is None:
-            return "DB Connection Failed"
+        conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST", "switchyard.proxy.rlwy.net"),
+            user=os.getenv("DB_USER", "root"),
+            password=os.getenv("DB_PASSWORD", "YqspPgyKSiKFiWDTEYgRvVkaRrakTntA"),
+            database=os.getenv("DB_NAME", "railway"),
+            port=int(os.getenv("DB_PORT", 30581)),
+            connection_timeout=20,
+            ssl_disabled=False
+        )
 
         cursor = conn.cursor()
         cursor.execute("SELECT 1")
@@ -501,7 +506,8 @@ def testdb():
         return "✅ DATABASE CONNECTED PERFECTLY"
 
     except Exception as e:
-        return f"❌ TEST DB ERROR: {str(e)}"
+        print("❌ TESTDB FULL ERROR:", str(e))
+        return f"❌ TESTDB FULL ERROR: {str(e)}"
 # ================= RUN APP =================
 if __name__ == '__main__':
     app.run(debug=True)
