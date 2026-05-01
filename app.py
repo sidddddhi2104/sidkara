@@ -3,10 +3,11 @@ from werkzeug.utils import secure_filename
 import MySQLdb.cursors
 import os
 import mysql.connector
+from mysql.connector import Error
 
 app = Flask(__name__)
 
-app.secret_key = 'siddhi_secret_key'
+app.secret_key = os.getenv("SECRET_KEY", "siddhi_secret_key")
 
 # ================= MYSQL CONFIG =================
 app.config['MYSQL_HOST'] = 'switchyard.proxy.rlwy.net'
@@ -19,14 +20,25 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 # Upload Folder
 app.config['UPLOAD_FOLDER'] = 'uploads/custom_orders'
 
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
 def get_db_connection():
-    return mysql.connector.connect(
-        host='switchyard.proxy.rlwy.net',
-        user='root',
-        password='YqspPgyKSiKFiWDTEYgRvVkaRrakTntA',
-        database='railway',
-        port=30581
-    )
+    try:
+        conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST", "switchyard.proxy.rlwy.net"),
+            user=os.getenv("DB_USER", "root"),
+            password=os.getenv("DB_PASSWORD", "YqspPgyKSiKFiWDTEYgRvVkaRrakTntA"),
+            database=os.getenv("DB_NAME", "railway"),
+            port=int(os.getenv("DB_PORT", 30581)),
+            connection_timeout=15,
+            autocommit=False
+        )
+        print("✅ MYSQL CONNECTED SUCCESSFULLY")
+        return conn
+
+    except Error as e:
+        print("❌ DATABASE CONNECTION ERROR:", e)
+        return None
 # ================= HOME =================
 @app.route('/')
 def home():
@@ -122,29 +134,53 @@ def register():
 
     if request.method == 'POST':
 
-        name = request.form['name']
-        email = request.form['email']
-        password = request.form['password']
+        conn = None
+        cursor = None
 
-        conn = get_db_connection()
-        cursor = conn.cursor()
+        try:
+            name = request.form['name']
+            email = request.form['email']
+            password = request.form['password']
 
-        cursor.execute(
-            "INSERT INTO users(name,email,password) VALUES(%s,%s,%s)",
-            (name, email, password)
-        )
+            conn = get_db_connection()
 
-        conn.commit()
+            if conn is None:
+                return "Database Connection Failed"
 
-        cursor.close()
-        conn.close()
+            cursor = conn.cursor()
 
-        flash('Registration Successful')
+            # check duplicate email
+            cursor.execute("SELECT * FROM users WHERE email=%s", (email,))
+            existing = cursor.fetchone()
 
-        return redirect('/login')
+            if existing:
+                flash("Email already registered")
+                return redirect('/register')
+
+            cursor.execute(
+                "INSERT INTO users(name,email,password) VALUES(%s,%s,%s)",
+                (name, email, password)
+            )
+
+            conn.commit()
+
+            print("✅ USER REGISTERED SUCCESSFULLY")
+
+            flash('Registration Successful')
+            return redirect('/login')
+
+        except Exception as e:
+            print("❌ REGISTER ERROR:", str(e))
+            return f"Register Failed: {str(e)}", 500
+
+        finally:
+            if cursor:
+                cursor.close()
+            if conn and conn.is_connected():
+                conn.close()
+                print("🔒 REGISTER DB CLOSED")
 
     return render_template('register.html')
-
 # ================= LOGOUT =================
 @app.route('/logout')
 def logout():
@@ -447,7 +483,25 @@ def admin_contacts():
         'admin-contacts.html',
         contacts=contacts
     )
+@app.route('/testdb')
+def testdb():
+    try:
+        conn = get_db_connection()
 
+        if conn is None:
+            return "DB Connection Failed"
+
+        cursor = conn.cursor()
+        cursor.execute("SELECT 1")
+        cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        return "✅ DATABASE CONNECTED PERFECTLY"
+
+    except Exception as e:
+        return f"❌ TEST DB ERROR: {str(e)}"
 # ================= RUN APP =================
 if __name__ == '__main__':
     app.run(debug=True)
