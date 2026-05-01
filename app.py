@@ -8,10 +8,11 @@ app = Flask(__name__)
 app.secret_key = 'siddhi_secret_key'
 
 # ================= MYSQL CONFIG =================
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'siddhi_diy_store'
+app.config['MYSQL_HOST'] = os.getenv('MYSQLHOST')
+app.config['MYSQL_USER'] = os.getenv('MYSQLUSER')
+app.config['MYSQL_PASSWORD'] = os.getenv('MYSQLPASSWORD')
+app.config['MYSQL_DB'] = os.getenv('MYSQLDATABASE')
+app.config['MYSQL_PORT'] = int(os.getenv('MYSQLPORT'))
 
 # Upload Folder
 app.config['UPLOAD_FOLDER'] = 'uploads/custom_orders'
