@@ -3,12 +3,13 @@ from flask_mysqldb import MySQL
 from werkzeug.utils import secure_filename
 import MySQLdb.cursors
 import os
+import pymysql
+pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
 
 app.secret_key = 'siddhi_secret_key'
 
-# ================= MYSQL CONFIG =================
 # ================= MYSQL CONFIG =================
 app.config['MYSQL_HOST'] = 'switchyard.proxy.rlwy.net'
 app.config['MYSQL_USER'] = 'root'
