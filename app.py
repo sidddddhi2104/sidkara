@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, flash
 from flask_mysqldb import MySQL
 from werkzeug.utils import secure_filename
+import MySQLdb.cursors
 import os
 
 app = Flask(__name__)
@@ -8,11 +9,13 @@ app = Flask(__name__)
 app.secret_key = 'siddhi_secret_key'
 
 # ================= MYSQL CONFIG =================
+# ================= MYSQL CONFIG =================
 app.config['MYSQL_HOST'] = 'switchyard.proxy.rlwy.net'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'YqspPgyKSiKFiWDTEYgRvVkaRrakTntA'
 app.config['MYSQL_DB'] = 'railway'
 app.config['MYSQL_PORT'] = 30581
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 # Upload Folder
 app.config['UPLOAD_FOLDER'] = 'uploads/custom_orders'
