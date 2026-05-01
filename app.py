@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request, redirect, session, flash
-from flask_mysqldb import MySQL
 from werkzeug.utils import secure_filename
 import MySQLdb.cursors
 import os
-import pymysql
-pymysql.install_as_MySQLdb()
+import mysql.connector
 
 app = Flask(__name__)
 
@@ -21,8 +19,14 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 # Upload Folder
 app.config['UPLOAD_FOLDER'] = 'uploads/custom_orders'
 
-mysql = MySQL(app)
-
+def get_db_connection():
+    return mysql.connector.connect(
+        host='switchyard.proxy.rlwy.net',
+        user='root',
+        password='YqspPgyKSiKFiWDTEYgRvVkaRrakTntA',
+        database='railway',
+        port=30581
+    )
 # ================= HOME =================
 @app.route('/')
 def home():
@@ -42,7 +46,8 @@ def welcome():
 @app.route('/products')
 def products():
 
-    cursor = mysql.connection.cursor()
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM products")
 
@@ -54,7 +59,8 @@ def products():
 @app.route('/product/<int:id>')
 def product_detail(id):
 
-    cursor = mysql.connection.cursor()
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM products WHERE id=%s", (id,))
 
@@ -84,7 +90,8 @@ def login():
 
         # ================= USER LOGIN =================
 
-        cursor = mysql.connection.cursor()
+        conn = get_db_connection()
+        cursor = conn.cursor()
 
         cursor.execute(
             "SELECT * FROM users WHERE email=%s AND password=%s",
@@ -119,14 +126,18 @@ def register():
         email = request.form['email']
         password = request.form['password']
 
-        cursor = mysql.connection.cursor()
+        conn = get_db_connection()
+        cursor = conn.cursor()
 
         cursor.execute(
             "INSERT INTO users(name,email,password) VALUES(%s,%s,%s)",
             (name, email, password)
         )
 
-        mysql.connection.commit()
+        conn.commit()
+
+        cursor.close()
+        conn.close()
 
         flash('Registration Successful')
 
@@ -156,7 +167,8 @@ def add_to_cart(product_id):
 
     user_id = session['user_id']
 
-    cursor = mysql.connection.cursor()
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
     cursor.execute(
         "SELECT * FROM cart WHERE user_id=%s AND product_id=%s",
@@ -179,7 +191,7 @@ def add_to_cart(product_id):
             (user_id, product_id, 1)
         )
 
-    mysql.connection.commit()
+    conn.commit()
 
     flash('Added To Cart Successfully')
 
@@ -196,14 +208,15 @@ def checkout():
         address = request.form['address']
         total = request.form['total']
 
-        cursor = mysql.connection.cursor()
+        conn = get_db_connection()
+        cursor = conn.cursor()
 
         cursor.execute(
             "INSERT INTO orders(fullname,phone,address,total) VALUES(%s,%s,%s,%s)",
             (fullname, phone, address, total)
         )
 
-        mysql.connection.commit()
+        conn.commit()
 
         flash('Order Placed Successfully')
 
@@ -226,14 +239,15 @@ def contact():
         email = request.form['email']
         message = request.form['message']
 
-        cursor = mysql.connection.cursor()
+        conn = get_db_connection()
+        cursor = conn.cursor()
 
         cursor.execute(
             "INSERT INTO contacts(name,email,message) VALUES(%s,%s,%s)",
             (name, email, message)
         )
 
-        mysql.connection.commit()
+        conn.commit()
 
         flash('Message Sent Successfully')
 
@@ -257,14 +271,15 @@ def custom_order():
 
         image.save(upload_path)
 
-        cursor = mysql.connection.cursor()
+        conn = get_db_connection()
+        cursor = conn.cursor()
 
         cursor.execute(
             "INSERT INTO custom_orders(customer_name,phone,details,image) VALUES(%s,%s,%s,%s)",
             (customer_name, phone, details, filename)
         )
 
-        mysql.connection.commit()
+        conn.commit()
 
         flash('Custom Order Submitted Successfully')
 
@@ -281,7 +296,8 @@ def admin_dashboard():
 
         return redirect('/login')
 
-    cursor = mysql.connection.cursor()
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM products")
     products = cursor.fetchall()
@@ -313,14 +329,15 @@ def add_product():
 
     image.save('static/images/' + filename)
 
-    cursor = mysql.connection.cursor()
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
     cursor.execute(
         "INSERT INTO products(name,category,price,description,image) VALUES(%s,%s,%s,%s,%s)",
         (name, category, price, description, filename)
     )
 
-    mysql.connection.commit()
+    conn.commit()
 
     flash('Product Added Successfully')
 
@@ -330,11 +347,12 @@ def add_product():
 @app.route('/delete-product/<int:id>')
 def delete_product(id):
 
-    cursor = mysql.connection.cursor()
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
     cursor.execute("DELETE FROM products WHERE id=%s", (id,))
 
-    mysql.connection.commit()
+    conn.commit()
 
     flash('Product Deleted Successfully')
 
@@ -376,7 +394,8 @@ def admin_products():
     if 'admin' not in session:
         return redirect('/login')
 
-    cursor = mysql.connection.cursor()
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM products")
 
@@ -396,7 +415,8 @@ def admin_orders():
     if 'admin' not in session:
         return redirect('/login')
 
-    cursor = mysql.connection.cursor()
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM orders")
 
@@ -416,7 +436,8 @@ def admin_contacts():
     if 'admin' not in session:
         return redirect('/login')
 
-    cursor = mysql.connection.cursor()
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM contacts")
 
